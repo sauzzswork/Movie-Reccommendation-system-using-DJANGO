@@ -1,0 +1,24 @@
+<!-- recommendations/templates/recommend.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recommend Movies</title>
+</head>
+<body>
+  <form id="form">
+    <label>Genre:</label>
+    <input type="text" id="genre" name="genre">
+    <button type="submit">Get Recommendations</button>
+  </form>
+  <div id="results"></div>
+  <script>
+    document.getElementById('form').onsubmit = async function(e) {
+      e.preventDefault();
+      let genre = document.getElementById('genre').value;
+      let res = await fetch(`/api/recommend/?genre=${genre}`);
+      let movies = await res.json();
+      document.getElementById('results').innerText = JSON.stringify(movies, null, 2);
+    }
+  </script>
+</body>
+</html>
